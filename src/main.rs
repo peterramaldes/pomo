@@ -26,4 +26,21 @@ enum Commands {
 
 fn main() {
     let cli = Cli::parse();
+
+    match &cli.command {
+        Some(Commands::Start { description }) => { 
+            // println!("{}", type_of(description));
+            start(description.to_string()); 
+        }
+        Some(Commands::Stop {}) => { stop(); }
+        None => {}
+    }
+}
+
+fn start(description: String) {
+    println!("Started are call with this description: {:?}", description);
+}
+
+fn stop() {
+    println!("Stop are called");
 }
