@@ -1,24 +1,29 @@
-use std::env;
+use clap::{Parser, Subcommand};
 
-// Pomo is a terminal based time tracking
-//
-// Features:
-// - [ ] Start timing
-// - [ ] End timing
-// - [ ] Store time elapsed time
-// - [ ] Integrate with Tmux
+/// Pomo is responsible for track you daily tasks and help you to put this 
+/// track time in your task managment application (like Jira)
+#[derive(Parser)]
+#[command(author, version, about, long_about = None)]
+struct Cli {
+    #[command(subcommand)]
+    command: Option<Commands>,
+}
 
-
-// TODO: fix if don´t pass any command this program broken
+#[derive(Subcommand)]
+enum Commands {
+    /// Start is responsible for start the tracking timing for one specific 
+    /// description
+    Start {
+        /// Description provided to specific taks, i.e. Daily, Meeting, Task X
+        #[arg(short, long)] // TODO: what is short, long?
+        description: String,
+    },
+    /// Stop is responsible for stop the tracking timing for the current 
+    /// tasking running
+    Stop {
+    },
+}
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-
-    let cmd = &args[1]; 
-
-    if cmd == "start" {
-        panic!("implement start");
-    } else if cmd == "stop" {
-        panic!("implement stop");
-    }
+    let cli = Cli::parse();
 }
