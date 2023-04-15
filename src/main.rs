@@ -1,4 +1,5 @@
 use clap::{Parser, Subcommand};
+mod pomo;
 
 /// Pomo is responsible for track you daily tasks and help you to put this 
 /// track time in your task managment application (like Jira)
@@ -26,21 +27,13 @@ enum Commands {
 
 fn main() {
     let cli = Cli::parse();
+    let pomo = Pomo {};
 
     match &cli.command {
         Some(Commands::Start { description }) => { 
-            // println!("{}", type_of(description));
-            start(description.to_string()); 
+            pomo.start(description.to_string()); 
         }
-        Some(Commands::Stop {}) => { stop(); }
+        Some(Commands::Stop {}) => { pomo.stop(); }
         None => {}
     }
-}
-
-fn start(description: String) {
-    println!("Started are call with this description: {:?}", description);
-}
-
-fn stop() {
-    println!("Stop are called");
 }
